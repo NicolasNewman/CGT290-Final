@@ -1,8 +1,42 @@
-.App {
-  text-align: center;
+* {
+    background-color: #464646;
+    color: #fff;
 }
 
-.App-logo {
+.App {
+    text-align: center;
+    width: 80vw;
+    margin: 0 auto;
+}
+
+/* ===== NAV STYLES =====*/
+.nav ul {
+    display: flex;
+    justify-content: center;
+    padding: 0;
+}
+
+.nav ul li {
+    list-style-type: none;
+    margin: 0 1.5rem;
+}
+
+.nav ul li a {
+    text-decoration: none;
+    transition: 0.5s color;
+}
+
+.nav ul li a:hover {
+    color: #0fe;
+}
+
+.activeNav {
+    color: #0fe;
+    padding-bottom: 3px;
+    border-bottom: 1px solid #0fe;
+}
+
+/* .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
@@ -35,4 +69,4 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */
