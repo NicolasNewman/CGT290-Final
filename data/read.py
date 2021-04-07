@@ -58,6 +58,7 @@ def process_files(files, func):
     lines = []
     skipped = 0
     file_count = len(files)
+
     for i, file in enumerate(files):
         print(f'[{i + 1}/{file_count}] Parsing {file}')
         file = open(file, 'r')
