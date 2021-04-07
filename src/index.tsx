@@ -1,15 +1,21 @@
+/* eslint-disable @typescript-eslint/no-useless-constructor */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+// import App from './App';
 import reportWebVitals from './reportWebVitals';
-import DataParser from './classes/DataParser';
+import { Router } from 'react-router-dom';
+import Root from './components/Root';
 
-const parser = new DataParser();
+import { createBrowserHistory } from 'history';
+
+const history = createBrowserHistory();
+// const parser = new DataParser();
+
 ReactDOM.render(
-    <React.StrictMode>
-        <App />
-    </React.StrictMode>,
+    <Router history={history}>
+        <Root />
+    </Router>,
     document.getElementById('root')
 );
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
 import {
     BrowserRouter as Router,
@@ -15,46 +15,46 @@ import Story from './components/Story';
 function App() {
     // const temp = Data[0];
     return (
-        <Router>
-            <div className="App">
-                <h1>Project Title</h1>
-                <nav className="nav">
-                    <ul>
-                        <li>
-                            <NavLink exact activeClassName="activeNav" to="/">
-                                Home
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink
-                                exact
-                                activeClassName="activeNav"
-                                to="/story"
-                            >
-                                Story
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink
-                                exact
-                                activeClassName="activeNav"
-                                to="/temp"
-                            >
-                                Page 3
-                            </NavLink>
-                        </li>
-                    </ul>
-                </nav>
-                <Switch>
-                    <Route path="/story">
-                        <Story />
-                    </Route>
-                    <Route path="/">
-                        <Home />
-                    </Route>
-                </Switch>
-            </div>
-        </Router>
+        // <Router>
+        <div className="App">
+            <h1>Project Title</h1>
+            <nav className="nav">
+                <ul>
+                    <li>
+                        <NavLink
+                            exact
+                            activeClassName="activeNav"
+                            to="/app/home"
+                        >
+                            Home
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink
+                            exact
+                            activeClassName="activeNav"
+                            to="/app/story"
+                        >
+                            Story
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink exact activeClassName="activeNav" to="/temp">
+                            Page 3
+                        </NavLink>
+                    </li>
+                </ul>
+            </nav>
+            <Switch>
+                <Route path="/app/story">
+                    <Story />
+                </Route>
+                <Route path="/app/home">
+                    <Home />
+                </Route>
+            </Switch>
+        </div>
+        // </Router>
     );
 }
 
