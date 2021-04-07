@@ -7,11 +7,15 @@ import {
     Route,
     NavLink,
 } from 'react-router-dom';
+// import Data from './data_dump';
+import DataParser from './classes/DataParser';
 
 import Home from './components/Home';
 import Story from './components/Story';
 
 function App() {
+    // const temp = Data[0];
+    const parser = new DataParser();
     return (
         <Router>
             <div className="App">
