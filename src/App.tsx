@@ -61,7 +61,7 @@ export default class App extends React.PureComponent<IProps> {
                 </nav>
                 <Switch>
                     <Route path="/app/story">
-                        <Story />
+                        <Story data={this.props.data} />
                     </Route>
                     <Route path="/app/home">
                         <Home data={this.props.data} />

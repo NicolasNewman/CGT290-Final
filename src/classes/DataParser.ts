@@ -11,6 +11,8 @@ export interface DataTable {
     items: string[];
     guildMap: { [guild: string]: Record[] };
     guilds: string[];
+    dateMap: { [date: string]: Record[] };
+    dates: string[];
 }
 
 interface Record {
@@ -33,6 +35,8 @@ export default class DataParser {
     items: string[] = [];
     guildMap: { [guild: string]: Record[] } = {};
     guilds: string[] = [];
+    dateMap: { [date: string]: Record[] } = {};
+    dates: string[] = [];
 
     private insert(
         key: string,
@@ -56,6 +60,9 @@ export default class DataParser {
                     step: (row) => {
                         const data = (row.data as unknown) as Record;
                         this.global.push(data);
+                        if (data.timestamp === undefined) {
+                            return;
+                        }
 
                         const name = data.item;
                         this.insert(name, data, this.itemMap);
@@ -65,11 +72,18 @@ export default class DataParser {
                         this.insert(seller, data, this.sellerMap);
                         const guild = data.guild;
                         this.insert(guild, data, this.guildMap);
+
+                        const date = data.timestamp.split(' ')[0];
+                        if (!this.dateMap[date]) {
+                            this.dates.push(date);
+                        }
+                        this.insert(date, data, this.dateMap);
                     },
                     complete: () => {
                         console.log('Done!');
                         console.log(this.global[0]);
                         console.log(this.global.length);
+                        console.log(this.dateMap);
                         this.items = Object.keys(this.itemMap);
                         this.buyers = Object.keys(this.buyerMap);
                         this.sellers = Object.keys(this.sellerMap);
@@ -92,6 +106,8 @@ export default class DataParser {
             items: this.items,
             guildMap: this.guildMap,
             guilds: this.guilds,
+            dateMap: this.dateMap,
+            dates: this.dates,
         };
     }
 }
