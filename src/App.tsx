@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-useless-constructor */
 import React from 'react';
 // import logo from './logo.svg';
 import './App.css';
@@ -7,81 +8,66 @@ import {
     Route,
     NavLink,
 } from 'react-router-dom';
-// import Data from './data_dump';
 
 import Home from './components/Home';
 import Story from './components/Story';
+import { DataTable } from './classes/DataParser';
 
-function App() {
-    // const temp = Data[0];
-    return (
-        // <Router>
-        <div className="App">
-            <h1>Project Title</h1>
-            <nav className="nav">
-                <ul>
-                    <li>
-                        <NavLink
-                            exact
-                            activeClassName="activeNav"
-                            to="/app/home"
-                        >
-                            Home
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink
-                            exact
-                            activeClassName="activeNav"
-                            to="/app/story"
-                        >
-                            Story
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink exact activeClassName="activeNav" to="/temp">
-                            Page 3
-                        </NavLink>
-                    </li>
-                </ul>
-            </nav>
-            <Switch>
-                <Route path="/app/story">
-                    <Story />
-                </Route>
-                <Route path="/app/home">
-                    <Home />
-                </Route>
-            </Switch>
-        </div>
-        // </Router>
-    );
+interface IProps {
+    data: DataTable;
 }
 
-export default App;
-// import React from 'react';
-// import logo from './logo.svg';
-// import './App.css';
+export default class App extends React.PureComponent<IProps> {
+    props!: IProps;
 
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.tsx</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
+    constructor(props: IProps) {
+        super(props);
+    }
 
-// export default App;
+    render() {
+        return (
+            <div className="App">
+                <h1>The Economy of ESO</h1>
+                <nav className="nav">
+                    <ul>
+                        <li>
+                            <NavLink
+                                exact
+                                activeClassName="activeNav"
+                                to="/app/home"
+                            >
+                                Home
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink
+                                exact
+                                activeClassName="activeNav"
+                                to="/app/story"
+                            >
+                                Story
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink
+                                exact
+                                activeClassName="activeNav"
+                                to="/temp"
+                            >
+                                Explore
+                            </NavLink>
+                        </li>
+                    </ul>
+                </nav>
+                <Switch>
+                    <Route path="/app/story">
+                        <Story />
+                    </Route>
+                    <Route path="/app/home">
+                        <Home data={this.props.data} />
+                    </Route>
+                </Switch>
+            </div>
+        );
+    }
+}

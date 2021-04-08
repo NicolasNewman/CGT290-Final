@@ -1,6 +1,18 @@
 // import { Record } from '../data_dump';
 import { parse, ParseResult } from 'papaparse';
 
+export interface DataTable {
+    global: Record[];
+    buyerMap: { [name: string]: Record[] };
+    buyers: string[];
+    sellerMap: { [name: string]: Record[] };
+    sellers: string[];
+    itemMap: { [item: string]: Record[] };
+    items: string[];
+    guildMap: { [guild: string]: Record[] };
+    guilds: string[];
+}
+
 interface Record {
     buyer: string;
     guild: string;
@@ -19,6 +31,8 @@ export default class DataParser {
     sellers: string[] = [];
     itemMap: { [item: string]: Record[] } = {};
     items: string[] = [];
+    guildMap: { [guild: string]: Record[] } = {};
+    guilds: string[] = [];
 
     private insert(
         key: string,
@@ -46,9 +60,11 @@ export default class DataParser {
                         const name = data.item;
                         this.insert(name, data, this.itemMap);
                         const buyer = data.buyer;
-                        // this.insert(buyer, data, this.buyerMap);
+                        this.insert(buyer, data, this.buyerMap);
                         const seller = data.seller;
-                        // this.insert(seller, data, this.sellerMap);
+                        this.insert(seller, data, this.sellerMap);
+                        const guild = data.guild;
+                        this.insert(guild, data, this.guildMap);
                     },
                     complete: () => {
                         console.log('Done!');
@@ -57,27 +73,25 @@ export default class DataParser {
                         this.items = Object.keys(this.itemMap);
                         this.buyers = Object.keys(this.buyerMap);
                         this.sellers = Object.keys(this.sellerMap);
+                        this.guilds = Object.keys(this.guildMap);
                         redirect();
                     },
                     delimiter: '#',
                 });
             });
-        // parse(
-        //     'https://raw.githubusercontent.com/NicolasNewman/CGT290-Final/master/data/data.csv',
-        //     {
-        //         worker: true,
-        //         download: true,
-        //         downloadRequestHeaders: {
-        //             'User-Agent': 'NicolasNewman',
-        //         },
-        //         step: (row) => {
-        //             console.log(row.data);
-        //         },
-        //         complete: () => {
-        //             console.log('Done!');
-        //         },
-        //         delimiter: '#',
-        //     }
-        // );
+    }
+
+    getDataTable(): DataTable {
+        return {
+            global: this.global,
+            sellerMap: this.sellerMap,
+            sellers: this.sellers,
+            buyerMap: this.buyerMap,
+            buyers: this.buyers,
+            itemMap: this.itemMap,
+            items: this.items,
+            guildMap: this.guildMap,
+            guilds: this.guilds,
+        };
     }
 }

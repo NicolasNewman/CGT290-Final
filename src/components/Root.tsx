@@ -33,7 +33,12 @@ class Root extends React.Component<IProps> {
     render() {
         return (
             <Switch>
-                <Route path="/app" component={App} />
+                <Route
+                    path="/app"
+                    component={() => {
+                        return <App data={this.parser.getDataTable()} />;
+                    }}
+                />
                 <Route path="/loading">
                     <div>
                         <p>Please wait while the app processes the data</p>
