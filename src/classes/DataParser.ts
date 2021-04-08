@@ -50,7 +50,10 @@ export default class DataParser {
     }
 
     constructor(redirect: () => void) {
-        fetch('NicolasNewman/CGT290-Final/master/data/data.csv')
+        fetch(
+            'https://raw.githubusercontent.com/NicolasNewman/CGT290-Final/master/data/data.csv'
+        )
+            // fetch('NicolasNewman/CGT290-Final/master/data/data.csv')
             .then((res) => res.text())
             .then((text) => {
                 parse<Record>(text, {
