@@ -31,6 +31,14 @@ class Root extends React.Component<IProps> {
     };
 
     render() {
+        console.log(this.parser.getDataTable());
+        console.log(this.props.history);
+        if (
+            this.parser.getDataTable().global.length === 0 &&
+            this.props.history.location.pathname !== '/loading'
+        ) {
+            this.props.history.push('/loading');
+        }
         return (
             <Switch>
                 <Route
@@ -44,7 +52,7 @@ class Root extends React.Component<IProps> {
                         <p>Please wait while the app processes the data</p>
                     </div>
                 </Route>
-                <Redirect from="/" to="/loading" />
+                {/* <Redirect from="/" to="/loading" /> */}
             </Switch>
         );
     }

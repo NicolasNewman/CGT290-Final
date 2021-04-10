@@ -15,7 +15,7 @@ export interface DataTable {
     dates: string[];
 }
 
-interface Record {
+export interface Record {
     buyer: string;
     guild: string;
     item: string;
@@ -50,10 +50,14 @@ export default class DataParser {
     }
 
     constructor(redirect: () => void) {
-        fetch(
-            'https://raw.githubusercontent.com/NicolasNewman/CGT290-Final/master/data/data.csv'
-        )
-            // fetch('NicolasNewman/CGT290-Final/master/data/data.csv')
+        const isNode =
+            typeof process !== 'undefined' &&
+            process.versions != null &&
+            process.versions.node != null;
+        const url = isNode
+            ? 'NicolasNewman/CGT290-Final/master/data/data.csv'
+            : 'https://raw.githubusercontent.com/NicolasNewman/CGT290-Final/master/data/data.csv';
+        fetch(url)
             .then((res) => res.text())
             .then((text) => {
                 parse<Record>(text, {

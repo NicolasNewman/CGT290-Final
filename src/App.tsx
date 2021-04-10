@@ -48,15 +48,6 @@ export default class App extends React.PureComponent<IProps> {
                                 Story
                             </NavLink>
                         </li>
-                        <li>
-                            <NavLink
-                                exact
-                                activeClassName="activeNav"
-                                to="/temp"
-                            >
-                                Explore
-                            </NavLink>
-                        </li>
                     </ul>
                 </nav>
                 <Switch>
