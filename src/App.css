@@ -36,6 +36,17 @@
     border-bottom: 1px solid #0fe;
 }
 
+/* ===== ANIMATION ===== */
+@keyframes spinner {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 /* .App-logo {
   height: 40vmin;
   pointer-events: none;

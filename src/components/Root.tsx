@@ -11,6 +11,7 @@ import {
 } from 'react-router-dom';
 import App from '../App';
 import DataParser from '../classes/DataParser';
+import spinner from '../spinner.png';
 
 interface IProps extends RouteComponentProps<any> {}
 
@@ -26,7 +27,7 @@ class Root extends React.Component<IProps> {
 
     redirect = () => {
         console.log('here');
-        this.props.history.push('/app');
+        this.props.history.push('/app/home');
         console.log(this.props.history);
     };
 
@@ -48,8 +49,19 @@ class Root extends React.Component<IProps> {
                     }}
                 />
                 <Route path="/loading">
-                    <div>
-                        <p>Please wait while the app processes the data</p>
+                    <div style={{ textAlign: 'center', marginTop: '10vh' }}>
+                        <h2>Please wait while the app processes the data</h2>
+                        <img
+                            src={spinner}
+                            style={{
+                                width: '20%',
+                                marginTop: '2rem',
+                                animationName: 'spinner',
+                                animationDuration: '4s',
+                                animationIterationCount: 'infinite',
+                            }}
+                            alt="Spinner"
+                        />
                     </div>
                 </Route>
                 {/* <Redirect from="/" to="/loading" /> */}

@@ -83,6 +83,7 @@ export default class ItemTreemap extends Component<IProps> {
                             from: 'color',
                             modifiers: [['darker', 0.1]],
                         }}
+                        leavesOnly
                         // @ts-ignore
                         tooltip={(node: any) => {
                             console.log(node);
