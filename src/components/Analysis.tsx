@@ -75,10 +75,10 @@ export default class Analysis extends Component<IProps> {
                 </p>
                 <h1>4) All firms are price takers</h1>
                 <p>
-                    In order for this condition to be true, the buyers must be
-                    the ones controling the price. The easiest way to determine
-                    this is by checking if a firms demand curve is perfectly
-                    elastic{' '}
+                    In order for this condition to be true, an individual seller
+                    should have no influence over the price . The easiest way to
+                    determine this is by checking if a seller's demand curve is
+                    perfectly elastic{' '}
                     <Popover
                         content={
                             <div style={{ width: '21vw' }}>
