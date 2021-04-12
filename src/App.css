@@ -1,12 +1,28 @@
+@import '~antd/dist/antd.css';
+
 * {
     background-color: #464646;
     color: #fff;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5 {
+    color: #fff !important;
+    margin: 1.25rem 0 !important;
+}
+
 .App {
     text-align: center;
     width: 80vw;
-    margin: 0 auto;
+    margin: 1rem auto;
+}
+
+.root {
+    height: 100%;
+    overflow-y: auto;
 }
 
 /* ===== NAV STYLES =====*/
@@ -47,37 +63,16 @@
     }
 }
 
-/* .App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* ===== OVERRIDE ===== */
+
+.anticon {
+    vertical-align: middle;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.ant-popover-title {
+    color: #fff !important;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.ant-popover {
+    border: 1px solid #fff;
 }
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-} */

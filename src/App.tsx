@@ -12,6 +12,7 @@ import {
 import Home from './components/Home';
 import Story from './components/Story';
 import { DataTable } from './classes/DataParser';
+import Analysis from './components/Analysis';
 
 interface IProps {
     data: DataTable;
@@ -43,15 +44,27 @@ export default class App extends React.PureComponent<IProps> {
                             <NavLink
                                 exact
                                 activeClassName="activeNav"
-                                to="/app/story"
+                                to="/app/overview"
                             >
-                                Story
+                                Overview
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink
+                                exact
+                                activeClassName="activeNav"
+                                to="/app/analysis"
+                            >
+                                Analysis
                             </NavLink>
                         </li>
                     </ul>
                 </nav>
                 <Switch>
-                    <Route path="/app/story">
+                    <Route path="/app/analysis">
+                        <Analysis data={this.props.data} />
+                    </Route>
+                    <Route path="/app/overview">
                         <Story data={this.props.data} />
                     </Route>
                     <Route path="/app/home">
