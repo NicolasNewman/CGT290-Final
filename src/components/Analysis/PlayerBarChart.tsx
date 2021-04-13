@@ -11,7 +11,6 @@ interface IProps {
     show: number;
     title: string;
 }
-
 export default class PlayerBarChart extends Component<IProps> {
     props!: IProps;
     data: {
@@ -55,12 +54,24 @@ export default class PlayerBarChart extends Component<IProps> {
         console.log(this.data);
     }
 
+    Title = (obj: any) => {
+        const { width, height } = obj;
+        return (
+            <text
+                x={width / 2}
+                textAnchor="middle"
+                y={-15}
+                fill="white"
+                fontWeight="bold"
+            >
+                {this.props.title}
+            </text>
+        );
+    };
+
     render() {
         return (
             <div>
-                <div>
-                    <p>{this.props.title}</p>
-                </div>
                 <div
                     style={{
                         width: '100%',
@@ -91,6 +102,14 @@ export default class PlayerBarChart extends Component<IProps> {
                             },
                         ]}
                         labelTextColor={'#fff'}
+                        layers={[
+                            'grid',
+                            'axes',
+                            'bars',
+                            'markers',
+                            'legends',
+                            this.Title,
+                        ]}
                     />
                 </div>
             </div>

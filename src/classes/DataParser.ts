@@ -38,6 +38,9 @@ export default class DataParser {
     dateMap: { [date: string]: Record[] } = {};
     dates: string[] = [];
 
+    i: number = 0;
+    len: number = 1;
+
     private insert(
         key: string,
         record: Record,
@@ -49,7 +52,12 @@ export default class DataParser {
         map[key].push(record);
     }
 
-    constructor(redirect: () => void) {
+    getProgress() {
+        return Math.ceil((this.i / this.len) * 100);
+    }
+
+    constructor(redirect: () => void, updateStage: (text: string) => void) {
+        updateStage('Fetching data...');
         const isNode =
             typeof process !== 'undefined' &&
             process.versions != null &&
@@ -57,15 +65,30 @@ export default class DataParser {
         const url = isNode
             ? 'NicolasNewman/CGT290-Final/master/data/data.csv'
             : 'https://raw.githubusercontent.com/NicolasNewman/CGT290-Final/master/data/data.csv';
+
         fetch(url)
             .then((res) => res.text())
             .then((text) => {
+                updateStage('Loading csv...');
+                // const prog = setInterval(() => {
+                //     console.log(this.i);
+                //     console.log(this.len);
+                //     updateStage(`Loading csv [${this.getProgress()}%]...`);
+                // }, 100);
+                // this.len = (text.match(/\n/g) || []).length;
                 parse<Record>(text, {
                     worker: true,
                     header: true,
 
                     step: (row) => {
+                        this.i = this.i + 1;
                         const data = (row.data as unknown) as Record;
+                        // if (this.i % 50000 === 0) {
+                        //     console.log(this.i);
+                        //     updateStage(
+                        //         `Loading csv [${this.getProgress()}%]...`
+                        //     );
+                        // }
                         this.global.push(data);
                         if (data.timestamp === undefined) {
                             return;
@@ -88,6 +111,9 @@ export default class DataParser {
                     },
                     complete: () => {
                         console.log('Done!');
+                        console.log(this.i);
+                        console.log(this.len);
+                        updateStage('Done!');
                         console.log(this.global[0]);
                         console.log(this.global.length);
                         console.log(this.dateMap);
@@ -95,6 +121,7 @@ export default class DataParser {
                         this.buyers = Object.keys(this.buyerMap);
                         this.sellers = Object.keys(this.sellerMap);
                         this.guilds = Object.keys(this.guildMap);
+                        // clearTimeout(prog);
                         redirect();
                     },
                     delimiter: '#',

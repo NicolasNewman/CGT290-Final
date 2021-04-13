@@ -6,6 +6,7 @@ import { QuestionCircleOutlined } from '@ant-design/icons';
 import { Popover } from 'antd';
 import ImgPerfectCompetition from '../perfect_comp.png';
 import PlayerBarChart from './Analysis/PlayerBarChart';
+import PlayerScatterPlot from './Analysis/PlayerScatterPlot';
 
 interface IProps {
     data: DataTable;
@@ -113,7 +114,7 @@ export default class Analysis extends Component<IProps> {
                     }
                     show={10}
                     title={
-                        'Unique values for the quantity of dreugh wax sold, per player'
+                        'Unique quantities for the quantity of dreugh wax sold, per player'
                     }
                 />
                 {/* <PlayerBarChart
@@ -124,6 +125,11 @@ export default class Analysis extends Component<IProps> {
                     }
                     show={10}
                 /> */}
+                <PlayerScatterPlot
+                    data={this.props.data.sellerMap}
+                    item="dreugh wax"
+                    players={['@3753']}
+                />
                 <h1>5) There is perfect information and knowledge</h1>
                 <MotifTracker data={this.props.data.itemMap} />
             </div>

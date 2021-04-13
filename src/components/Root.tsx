@@ -15,15 +15,28 @@ import spinner from '../spinner.png';
 
 interface IProps extends RouteComponentProps<any> {}
 
-class Root extends React.Component<IProps> {
+interface IState {
+    stageText: string;
+}
+
+class Root extends React.Component<IProps, IState> {
     props!: IProps;
     parser: DataParser;
 
     constructor(props: IProps) {
         super(props);
-        this.parser = new DataParser(this.redirect);
+        this.parser = new DataParser(this.redirect, this.setStageText);
+        this.state = {
+            stageText: 'Fetching data...',
+        };
         console.log(props);
     }
+
+    setStageText = (text: string) => {
+        if (this.state) {
+            this.setState({ stageText: text });
+        }
+    };
 
     redirect = () => {
         console.log('here');
@@ -34,6 +47,7 @@ class Root extends React.Component<IProps> {
     render() {
         console.log(this.parser.getDataTable());
         console.log(this.props.history);
+        console.log(this.state);
         if (
             this.parser.getDataTable().global.length === 0 &&
             this.props.history.location.pathname !== '/loading'
@@ -51,17 +65,21 @@ class Root extends React.Component<IProps> {
                 <Route path="/loading">
                     <div style={{ textAlign: 'center', marginTop: '10vh' }}>
                         <h2>Please wait while the app processes the data</h2>
-                        <img
-                            src={spinner}
-                            style={{
-                                width: '20%',
-                                marginTop: '2rem',
-                                animationName: 'spinner',
-                                animationDuration: '4s',
-                                animationIterationCount: 'infinite',
-                            }}
-                            alt="Spinner"
-                        />
+                        <div>
+                            <div>{this.state.stageText}</div>
+                            <img
+                                src={spinner}
+                                style={{
+                                    width: '15rem',
+                                    marginTop: '2rem',
+                                    animationName: 'spinner',
+                                    animationDuration: '4s',
+                                    animationIterationCount: 'infinite',
+                                    background: 'transparent',
+                                }}
+                                alt="Spinner"
+                            />
+                        </div>
                     </div>
                 </Route>
                 {/* <Redirect from="/" to="/loading" /> */}
