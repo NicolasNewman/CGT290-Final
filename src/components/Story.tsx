@@ -4,6 +4,7 @@ import { DataTable } from '../classes/DataParser';
 import TransactionHistory from './Charts/TransactionHistory';
 import SellerBars from './Charts/SellerBars';
 import ItemTreemap from './Charts/ItemTreemap';
+import MotifTracker from './Charts/MotifTracker';
 
 interface IProps {
     data: DataTable;
@@ -26,6 +27,16 @@ export default class Story extends Component<IProps> {
                 <h1>Item Marketshare</h1>
                 <ItemTreemap data={this.props.data.itemMap} count={75} />
                 <div style={{ paddingBottom: '2rem' }}> </div>
+                <h1>Changes in Price as a Result of Changes in Supply</h1>
+                <MotifTracker data={this.props.data.itemMap} />
+                <em>
+                    April 1st was the start of the Anniversary event, where
+                    compleating any quest has a chance to give you any motif
+                    (recipe that teaches you how to craft a unique style of
+                    armor) in the game. This substatially increases the supply
+                    as they are normally very rare. As a result, we should
+                    expect the price to decrease
+                </em>
             </div>
         );
     }

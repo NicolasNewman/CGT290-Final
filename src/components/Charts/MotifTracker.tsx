@@ -93,9 +93,6 @@ export default class SellerBars extends Component<IProps> {
         console.log(this.data);
         return (
             <div>
-                <div>
-                    <p>Info</p>
-                </div>
                 <div
                     style={{
                         width: '100%',

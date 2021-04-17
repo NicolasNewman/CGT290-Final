@@ -7,6 +7,7 @@ import { Popover } from 'antd';
 import ImgPerfectCompetition from '../perfect_comp.png';
 import PlayerBarChart from './Analysis/PlayerBarChart';
 import PlayerScatterPlot from './Analysis/PlayerScatterPlot';
+import ItemScatterPlot from './Analysis/ItemScatterPlot';
 
 interface IProps {
     data: DataTable;
@@ -106,6 +107,11 @@ export default class Analysis extends Component<IProps> {
                         <QuestionCircleOutlined />
                     </Popover>
                 </p>
+                <p>
+                    The easiest way to check this is to find a seller with a
+                    large number of distinct quantities sold for a particular
+                    item
+                </p>
                 <PlayerBarChart
                     data={this.props.data.sellerMap}
                     item="dreugh wax"
@@ -117,6 +123,10 @@ export default class Analysis extends Component<IProps> {
                         'Unique quantities for the quantity of dreugh wax sold, per player'
                     }
                 />
+                <p>
+                    Looking at the above chart, player @3753 sold 11 different
+                    quantities of the item
+                </p>
                 {/* <PlayerBarChart
                     data={this.props.data.sellerMap}
                     item="dreugh wax"
@@ -130,8 +140,77 @@ export default class Analysis extends Component<IProps> {
                     item="dreugh wax"
                     players={['@3753']}
                 />
+                <p>
+                    If we make a Quantity v. Price chart, we can see that the
+                    line of best fit would have a slope near 0, making this
+                    true.
+                </p>
                 <h1>5) There is perfect information and knowledge</h1>
-                <MotifTracker data={this.props.data.itemMap} />
+                {/* <MotifTracker data={this.props.data.itemMap} /> */}
+                <p>
+                    For this condition to be true, everyone must be aware of the
+                    most up-to-date info on prices and events that could effect
+                    prices
+                </p>
+                <p>
+                    On March 8th, U29: <em>The Flames of Ambition</em> was
+                    released. With this update, the max level was raised for the
+                    first time in over 3 years. As a result of this, many
+                    competitive players wanted to get to the new level cap as
+                    fast as possible. One way to do this is with a potion called
+                    Mythic Ambrosia, which increases the rate at which you level
+                    up by 150%.
+                </p>
+                <p>
+                    At this point in time, many who are aware of ecomonics will
+                    know that with a drastic increase in demand, prices will
+                    skyrocket. If this condition was true, every seller would
+                    have been aware of this and have accounted for it
+                    accordingly.
+                </p>
+                <ItemScatterPlot
+                    item="Aetherial Dust"
+                    data={this.props.data.itemMap}
+                    dateStart={new Date('3/05/2021')}
+                    dateEnd={new Date('3/30/2021')}
+                />
+                <p>
+                    Looking at the above chart, some interesting trends surface:
+                </p>
+                <ol>
+                    <li>
+                        The point at which the price will be highest is right
+                        when it becomes available. Looking at sales before the
+                        8th, we see some people sold too early and lost a
+                        substantial amount of money
+                    </li>
+                    <li>
+                        Lucian Allegiance is one of the most competitive trading
+                        guilds in the game, holding their trader at the most
+                        populous city of Mournhold. Looking at all of the sales
+                        at the peak (March 7th), this was the only guild which
+                        sold the item at an inflated price. The only sale from
+                        another guild was at the original price before the price
+                        increase
+                    </li>
+                    <li>
+                        As the time since the updates draw out, start seeing
+                        more and more sales from other guilds. This is most
+                        likely due to word of mouth spreading once players can
+                        physically see the price increase
+                    </li>
+                </ol>
+                <p>
+                    Based on these observations, the spread of information
+                    doesn't appear to immedietly reach everyone, making this
+                    condition untrue
+                </p>
+                <h1>Conclusion</h1>
+                <p>
+                    After careful analysis, the only conditions which hold true
+                    are 1, 3, and 4. Since 2 and 5 don't, we cannot use this
+                    economy as a model for perfect competition
+                </p>
             </div>
         );
     }
