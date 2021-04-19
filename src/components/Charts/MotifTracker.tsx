@@ -122,7 +122,7 @@ export default class SellerBars extends Component<IProps> {
                             legend: 'time scale',
                             legendOffset: -12,
                         }}
-                        margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
+                        margin={{ top: 20, right: 110, bottom: 50, left: 60 }}
                         theme={{ textColor: '#fff' }}
                         useMesh
                         curve="monotoneX"

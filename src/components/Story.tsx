@@ -5,6 +5,7 @@ import TransactionHistory from './Charts/TransactionHistory';
 import SellerBars from './Charts/SellerBars';
 import ItemTreemap from './Charts/ItemTreemap';
 import MotifTracker from './Charts/MotifTracker';
+import ChordChart from './Charts/ChordChart';
 
 interface IProps {
     data: DataTable;
@@ -37,6 +38,12 @@ export default class Story extends Component<IProps> {
                     as they are normally very rare. As a result, we should
                     expect the price to decrease
                 </em>
+                <h1>Interactions between Sellers {'&'} Buyers</h1>
+                <ChordChart
+                    buyers={this.props.data.buyerMap}
+                    sellers={this.props.data.sellerMap}
+                    count={250}
+                />
             </div>
         );
     }
