@@ -110,6 +110,15 @@ export default class PlayerBarChart extends Component<IProps> {
                             'legends',
                             this.Title,
                         ]}
+                        tooltip={(obj: any) => {
+                            const { data } = obj;
+                            return (
+                                <div className="tooltip">
+                                    {data.player} sold {data.quant} unique
+                                    quantities of {this.props.item}
+                                </div>
+                            );
+                        }}
                     />
                 </div>
             </div>

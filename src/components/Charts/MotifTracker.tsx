@@ -137,6 +137,20 @@ export default class SellerBars extends Component<IProps> {
                             },
                         ]}
                         enableSlices={false}
+                        tooltip={(data: any) => {
+                            console.log(data);
+                            const { point } = data;
+                            return (
+                                <div className="tooltip">
+                                    <div>{point.serieId}</div>
+                                    <div>
+                                        Sold for an average of{' '}
+                                        {point.data.yFormatted} on{' '}
+                                        {point.data.xFormatted}
+                                    </div>
+                                </div>
+                            );
+                        }}
                     />
                 </div>
             </div>

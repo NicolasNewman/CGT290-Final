@@ -147,6 +147,16 @@ export default class ItemScatterPlot extends Component<IProps> {
                                     )}`
                                 ),
                         ]}
+                        tooltip={(obj: any) => {
+                            const { data } = obj.node;
+                            return (
+                                <div className="tooltip">
+                                    <div>Guild: {data.serieId}</div>
+                                    <div>Date: {data.formattedX}</div>
+                                    <div>Price: {data.formattedY}g</div>
+                                </div>
+                            );
+                        }}
                     />
                 </div>
             </div>

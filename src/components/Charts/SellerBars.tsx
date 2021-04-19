@@ -65,7 +65,7 @@ export default class SellerBars extends Component<IProps> {
 
     render() {
         return (
-            <div>
+            <div className="chart">
                 <div>
                     <p>
                         There was {Object.keys(this.props.data).length} unique

@@ -1,6 +1,6 @@
 @import '~antd/dist/antd.css';
 
-* {
+body {
     background-color: #464646;
     color: #fff;
 }
@@ -23,6 +23,13 @@ h5 {
 #root {
     height: 100%;
     overflow-y: auto;
+}
+
+.tooltip {
+    background-color: #353535 !important;
+    color: #fff;
+    border: 1px solid #fff;
+    padding: 0.25rem;
 }
 
 /* ===== NAV STYLES =====*/

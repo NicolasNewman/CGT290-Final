@@ -131,7 +131,7 @@ export default class ChordChart extends Component<IProps> {
 
     render() {
         return (
-            <div>
+            <div className="chart">
                 <div style={{ width: '100%', height: '500px' }}>
                     <ResponsiveChord
                         matrix={this.matrix}
@@ -148,6 +148,31 @@ export default class ChordChart extends Component<IProps> {
                                     `Read as: seller sold to buyer "n" times`
                                 ),
                         ]}
+                        arcTooltip={(data: any) => {
+                            const { arc } = data;
+                            return (
+                                <div className="tooltip">
+                                    {arc.id}: {arc.formattedValue}
+                                </div>
+                            );
+                        }}
+                        ribbonTooltip={(data: any) => {
+                            console.log(data);
+                            const { ribbon } = data;
+                            const { source, target } = ribbon;
+                            return (
+                                <div className="tooltip">
+                                    <div>
+                                        {source.id} sold to {target.id}{' '}
+                                        {source.formattedValue} times
+                                    </div>
+                                    <div>
+                                        {target.id} sold to {source.id}{' '}
+                                        {target.formattedValue} times
+                                    </div>
+                                </div>
+                            );
+                        }}
                         colors={{ scheme: 'paired' }}
                         labelRotation={-90}
                     />

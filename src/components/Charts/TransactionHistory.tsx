@@ -118,7 +118,7 @@ export default class TransactionHistory extends Component<IProps> {
         console.log(this.min);
         console.log(this.max);
         return (
-            <div>
+            <div className="chart">
                 {this.props.exclude ? (
                     <span />
                 ) : (
@@ -147,10 +147,11 @@ export default class TransactionHistory extends Component<IProps> {
                             console.log(data);
                             return (
                                 <div
-                                    style={{
-                                        padding: '0.25rem',
-                                        backgroundColor: '#999',
-                                    }}
+                                    // style={{
+                                    //     padding: '0.25rem',
+                                    //     backgroundColor: '#999',
+                                    // }}
+                                    className="tooltip"
                                 >
                                     <div>
                                         <strong>

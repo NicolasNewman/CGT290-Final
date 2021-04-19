@@ -119,6 +119,15 @@ export default class PlayerScatterPlot extends Component<IProps> {
                                     )}`
                                 ),
                         ]}
+                        tooltip={(obj: any) => {
+                            const { data } = obj.node;
+                            return (
+                                <div className="tooltip">
+                                    {data.serieId} sold a stack of {data.x}{' '}
+                                    {this.props.item} for {data.y}g per unit
+                                </div>
+                            );
+                        }}
                     />
                     {/* <ResponsiveBar
                         data={this.data}

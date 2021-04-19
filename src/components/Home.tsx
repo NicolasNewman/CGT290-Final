@@ -1,6 +1,13 @@
 /* eslint-disable @typescript-eslint/no-useless-constructor */
 import { Component } from 'react';
 import { DataTable } from '../classes/DataParser';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { a11yDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import MMSampleText from '../text/mmSample';
+import PythonMain from '../text/pyMain';
+import PythonAnon from '../text/pyAnon';
+import PythonRead from '../text/pyRead';
+import PythonCSV from '../text/pyTableau';
 
 interface IProps {
     data: DataTable;
@@ -64,12 +71,60 @@ export default class Home extends Component<IProps> {
                     </a>{' '}
                     to analyze and collect this data. Unfortunetly, this means
                     the data set used is limited to traders I have access too.
-                    <br />
-                    <br />
+                </p>
+                <p>A sample of a record within the data set is as follows: </p>
+                <SyntaxHighlighter
+                    style={a11yDark}
+                    language="lua"
+                    wrapLongLines
+                >
+                    {MMSampleText}
+                </SyntaxHighlighter>
+                <p>
                     Overall, data was recorded for{' '}
                     {this.props.data.guilds.length} guilds, with{' '}
                     {this.props.data.global.length} transactions being recorded
                 </p>
+                <h1>Processing</h1>
+                <p>
+                    A python script was used to process the data. Since the data
+                    was a lua file,{' '}
+                    <a href="https://pypi.org/project/lupa/">lupa</a> was a very
+                    useful module to quickly import the data into a format
+                    recognizable to Python
+                </p>
+                <h2>Main.py</h2>
+                <SyntaxHighlighter
+                    style={a11yDark}
+                    language="python"
+                    wrapLongLines
+                >
+                    {PythonMain}
+                </SyntaxHighlighter>
+                <h2>anonymizer.py</h2>
+                <SyntaxHighlighter
+                    style={a11yDark}
+                    language="python"
+                    wrapLongLines
+                >
+                    {PythonAnon}
+                </SyntaxHighlighter>
+                <h2>read.py</h2>
+                <SyntaxHighlighter
+                    style={a11yDark}
+                    language="python"
+                    wrapLongLines
+                >
+                    {PythonRead}
+                </SyntaxHighlighter>
+                <h2>convert_tableau.py</h2>
+                <SyntaxHighlighter
+                    style={a11yDark}
+                    language="python"
+                    wrapLongLines
+                >
+                    {PythonCSV}
+                </SyntaxHighlighter>
             </div>
         );
     }

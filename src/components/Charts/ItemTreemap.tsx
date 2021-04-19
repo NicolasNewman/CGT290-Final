@@ -65,7 +65,7 @@ export default class ItemTreemap extends Component<IProps> {
 
     render() {
         return (
-            <div>
+            <div className="chart">
                 <div style={{ width: '100%', height: '500px' }}>
                     <ResponsiveTreeMap
                         data={this.data}
@@ -89,11 +89,7 @@ export default class ItemTreemap extends Component<IProps> {
                             console.log(node);
                             const data = node.node.data;
                             return (
-                                <div
-                                    style={{
-                                        padding: ' 0.25rem 1rem',
-                                    }}
-                                >
+                                <div className="tooltip">
                                     <div>
                                         <strong>{data.name}</strong>
                                         <div>Sold: {data.count}</div>
