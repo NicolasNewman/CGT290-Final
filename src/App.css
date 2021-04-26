@@ -1,7 +1,7 @@
-@import '~antd/dist/antd.css';
+@import '~antd/dist/antd.dark.css';
 
 body {
-    background-color: #464646;
+    background-color: #464646 !important;
     color: #fff;
 }
 

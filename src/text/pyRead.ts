@@ -7,7 +7,7 @@ from lupa import LuaRuntime
 lua = LuaRuntime(unpack_returned_tuples=True)
 
 
-def find_all_files(path='./mm'):
+def find_all_files(path='../mm'):
     data_files = []
     dir_count = 0
     file_count = 0
@@ -22,13 +22,20 @@ def find_all_files(path='./mm'):
     return data_files
 
 
-def process_files(files, func):
+def remove_duplicates(lines):
+    unique_lines = set(lines)
+    print(f'Removed {len(lines) - len(unique_lines)} duplicate entries')
+    return unique_lines
+
+
+def process_files(files, func, counter):
     lines = []
     skipped = 0
     file_count = len(files)
+    process_name = f'{counter[0]}/{counter[1]}'
 
     for i, file in enumerate(files):
-        print(f'[{i + 1}/{file_count}] Parsing {file}')
+        print(f'[{process_name}] Parsing {file}')
         file = open(file, 'r')
         file_str = file.read()
         # Replace the MM file header
@@ -44,7 +51,7 @@ def process_files(files, func):
 
                 record = sorted(table_grouping.items())
                 if not (len(record) == 7 or len(record) == 4 or len(record) == 6):
-                    print(f'Warning: Could not parse record {record}')
+                    print(f'[{process_name}] Warning: Could not parse record {record}')
                     skipped += 1
                     continue
 
@@ -67,12 +74,8 @@ def process_files(files, func):
                     line = func(item_desc, sale)
                     lines.append(line)
 
-    print(f'Parsed {len(lines)} sale records across all files')
-    unique_lines = set(lines)
-    # print(f'{len(lines) - len(pd.unique(lines).tolist())} duplicates')
-    print(f'Skipped {skipped} records due to incomplete data')
-    print(f'Removed {len(lines) - len(unique_lines)} duplicate entries')
-    return unique_lines
-`;
+    print(f'[{process_name}] Parsed {len(lines)} sale records')
+    print(f'[{process_name}] Skipped {skipped} records due to incomplete data')
+    return lines`;
 
 export default str;

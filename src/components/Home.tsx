@@ -25,26 +25,36 @@ export default class Home extends Component<IProps> {
             <div>
                 <h1>Overview</h1>
                 <p>
-                    In the Elder Scrolls Online (ESO), trading is done through
-                    traders owned by guilds. Each week guilds can bid on a
-                    trader and the guild with the highest bid gets to use that
-                    trader for the week. Traders are located in every major
-                    town, and since some are more populated then others, the
-                    average bid on a trader varies grately by location.
-                    <br />
-                    <br />
-                    Any player can go to these traders and use their gold to
-                    purchase items they desire, but only members of the guild
-                    can sell items through that trader. When a player purchases
-                    an item, a majority of the gold goes to the seller, but a
-                    small portion is taken as tax for the guild.
+                    In 2009, as the world was still recovering from the 2008
+                    recession, Eli Kosminsky published a paper titled{' '}
+                    <a href="https://jvwr-ojs-utexas-stage.tdl.org/jvwr/index.php/jvwr/article/view/869">
+                        <em>
+                            World of Warcraft: The Viability of Massively
+                            Multiplayer Online Role-Playing Games as Platforms
+                            for Modeling and Evaluating Perfect Competition
+                        </em>
+                    </a>
+                    . In the paper, he argued for the use of virtual economies
+                    in certain MMORPG video games as a model for perfect
+                    competition. His basis for his argument was that in the real
+                    world, there are no textbook examples of a market that is
+                    perfectly competitive. Some real world markets that are
+                    close include foreign exchange, agricultural, and internet
+                    markets such as eBay. Unfortunetly, these aren't close
+                    enough to where researchers can analyze these markets using
+                    a model of perfect competition, resulting in little
+                    researching existing about the real-world benefits of such
+                    an economy. His paper focused on arguably the largest MMORPG
+                    to date, World of Warcraft (WoW). He concluded that the
+                    virtual economy does in fact follow this model, which
+                    encouraged other researchers to use the game as a framework
+                    to furthur study perfectly competitive markets.
                 </p>
-                <h1>Analysis</h1>
                 <p>
                     The goal of my analysis is to determine if ESO follows an
-                    economic model of perfect competition. For those unfimilar
-                    with economics, a market that is perfectly competitive has
-                    the following characteristics:
+                    economic model of perfect competition as well. For those
+                    unfimilar with economics, a market that is perfectly
+                    competitive has the following characteristics:
                 </p>
                 <ol>
                     <li>Competition is at its greatest possible level</li>
@@ -61,7 +71,23 @@ export default class Home extends Component<IProps> {
                         conditions
                     </li>
                 </ol>
-                <h1>Data</h1>
+
+                <h1>Data {'&'} Collection</h1>
+                <p>
+                    In the Elder Scrolls Online (ESO), trading is done through
+                    traders owned by guilds. Each week guilds can bid on a
+                    trader and the guild with the highest bid gets to use that
+                    trader for the week. Traders are located in every major
+                    town, and since some are more populated then others, the
+                    average bid on a trader varies grately by location.
+                    <br />
+                    <br />
+                    Any player can go to these traders and use their gold to
+                    purchase items they desire, but only members of the guild
+                    can sell items through that trader. When a player purchases
+                    an item, a majority of the gold goes to the seller, but a
+                    small portion is taken as tax for the guild.
+                </p>
                 <p>
                     In ESO, guild trader data is only visible to members within
                     that guild, and only the past 10 days of sales are kept. A
@@ -72,7 +98,12 @@ export default class Home extends Component<IProps> {
                     to analyze and collect this data. Unfortunetly, this means
                     the data set used is limited to traders I have access too.
                 </p>
-                <p>A sample of a record within the data set is as follows: </p>
+                <p>
+                    Each 10 day subset of data is seperated between 16 files
+                    titled MM##Data.lua. The data uses a JSON-like syntax and is
+                    found at the <em>SalesData</em> level. An example of a
+                    particular file is as followed:
+                </p>
                 <SyntaxHighlighter
                     style={a11yDark}
                     language="lua"
@@ -81,17 +112,29 @@ export default class Home extends Component<IProps> {
                     {MMSampleText}
                 </SyntaxHighlighter>
                 <p>
+                    <em>wasKiosk</em> and <em>itemLink</em>, the only two field
+                    which aren't self-explanatory, indicate if the purchase was
+                    made directly from the trader along with specific
+                    information about the item. The exact fields for an itemLink
+                    are explained on{' '}
+                    <a href="https://en.uesp.net/wiki/Online:Item_Link">UESP</a>
+                </p>
+                {/* <p>
                     Overall, data was recorded for{' '}
                     {this.props.data.guilds.length} guilds, with{' '}
                     {this.props.data.global.length} transactions being recorded
-                </p>
+                </p> */}
                 <h1>Processing</h1>
                 <p>
                     A python script was used to process the data. Since the data
-                    was a lua file,{' '}
+                    was within a lua file, the Python package{' '}
                     <a href="https://pypi.org/project/lupa/">lupa</a> was a very
                     useful module to quickly import the data into a format
-                    recognizable to Python
+                    recognizable to Python. The scripts used are included below
+                    and can be found on the Github{' '}
+                    <a href="https://github.com/NicolasNewman/CGT290-Final/tree/master/data">
+                        repository
+                    </a>
                 </p>
                 <h2>Main.py</h2>
                 <SyntaxHighlighter
@@ -102,6 +145,11 @@ export default class Home extends Component<IProps> {
                     {PythonMain}
                 </SyntaxHighlighter>
                 <h2>anonymizer.py</h2>
+                <p>
+                    Since the source data personally identifies the name of the
+                    user who bought/sold an item, an additional step was taken
+                    while parsing the data to anonymize it.
+                </p>
                 <SyntaxHighlighter
                     style={a11yDark}
                     language="python"

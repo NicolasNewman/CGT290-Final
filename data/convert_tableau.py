@@ -1,4 +1,4 @@
-const str = `from datetime import datetime
+from datetime import datetime
 from read import find_all_files
 from read import process_files
 from anonymizer import AnonymizerFactory
@@ -49,6 +49,5 @@ def dump_tableau(filename='data_dump.csv'):
 
     with open(filename, 'w') as f:
         f.write('item#guild#buyer#seller#price#quant#timestamp#itemlink\n')
-        f.writelines(unique)`;
+        f.writelines(unique)
 
-export default str;

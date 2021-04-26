@@ -7,7 +7,7 @@ from lupa import LuaRuntime
 lua = LuaRuntime(unpack_returned_tuples=True)
 
 
-def find_all_files(path='./mm'):
+def find_all_files(path='../mm'):
     data_files = []
     dir_count = 0
     file_count = 0
@@ -22,45 +22,20 @@ def find_all_files(path='./mm'):
     return data_files
 
 
-'''
-[88065] = <- lv0
-{
-    ["50:16:4:13:0"] = <- lv1
-    {
-        ["totalCount"] = 2,
-        ["wasAltered"] = false,
-        ["sales"] = <- lv2
-        {
-            [1] = <- sale
-            {
-                ["guild"] = "AK Tamriel Trade",
-                ["id"] = "1434753847",
-                ["itemLink"] = "|H0:item:88065:363:50:0:0:0:0:0:0:0:0:0:0:0:0:24:0:0:0:10000:0|h|h",
-                ["seller"] = "@iSteve",
-                ["quant"] = 1,
-                ["timestamp"] = 1607380911,
-                ["price"] = 3000,
-                ["wasKiosk"] = true,
-                ["buyer"] = "@YoDa72758",
-            },
-        },
-        ["itemDesc"] = "Alessian Pauldron",
-        ["itemIcon"] = "/esoui/art/icons/gear_ebonheart_heavy_shoulders_a.dds",
-        ["itemAdderText"] = "cp160 purple epic heavy apparel armor set alessian order shoulders reinforced",
-        ["oldestTime"] = 1607380911,
-    },
-},
-'''
+def remove_duplicates(lines):
+    unique_lines = set(lines)
+    print(f'Removed {len(lines) - len(unique_lines)} duplicate entries')
+    return unique_lines
 
 
-def process_files(files, func):
-    # files = find_all_files()
+def process_files(files, func, counter):
     lines = []
     skipped = 0
     file_count = len(files)
+    process_name = f'{counter[0]}/{counter[1]}'
 
     for i, file in enumerate(files):
-        print(f'[{i + 1}/{file_count}] Parsing {file}')
+        print(f'[{process_name}] Parsing {file}')
         file = open(file, 'r')
         file_str = file.read()
         # Replace the MM file header
@@ -76,20 +51,15 @@ def process_files(files, func):
 
                 record = sorted(table_grouping.items())
                 if not (len(record) == 7 or len(record) == 4 or len(record) == 6):
-                    print(f'Warning: Could not parse record {record}')
+                    print(f'[{process_name}] Warning: Could not parse record {record}')
                     skipped += 1
                     continue
 
                 item_desc = ''
                 table_sales = ''
                 if len(record) == 7:
-                    # itemAdderText = record[0][1]
                     item_desc = record[1][1]
-                    # itemIcon = record[2][1]
-                    # oldestTime = record[3][1]
                     table_sales = record[4][1]
-                    # total_count = record[5][1]
-                    # was_altered = record[6][1]
                 if len(record) == 6:
                     item_desc = record[1][1]
                     table_sales = record[4][1]
@@ -104,9 +74,6 @@ def process_files(files, func):
                     line = func(item_desc, sale)
                     lines.append(line)
 
-    print(f'Parsed {len(lines)} sale records across all files')
-    unique_lines = set(lines)
-    # print(f'{len(lines) - len(pd.unique(lines).tolist())} duplicates')
-    print(f'Skipped {skipped} records due to incomplete data')
-    print(f'Removed {len(lines) - len(unique_lines)} duplicate entries')
-    return unique_lines
+    print(f'[{process_name}] Parsed {len(lines)} sale records')
+    print(f'[{process_name}] Skipped {skipped} records due to incomplete data')
+    return lines

@@ -6,6 +6,7 @@ import SellerBars from './Charts/SellerBars';
 import ItemTreemap from './Charts/ItemTreemap';
 import MotifTracker from './Charts/MotifTracker';
 import ChordChart from './Charts/ChordChart';
+import WritSunburst from './Charts/WritSunburst';
 
 interface IProps {
     data: DataTable;
@@ -44,6 +45,8 @@ export default class Story extends Component<IProps> {
                     sellers={this.props.data.sellerMap}
                     count={250}
                 />
+                <h1>Crafting Writ Distribution</h1>
+                <WritSunburst writs={this.props.data.writs} />
             </div>
         );
     }

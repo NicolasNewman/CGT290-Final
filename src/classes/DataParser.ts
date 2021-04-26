@@ -1,5 +1,6 @@
 // import { Record } from '../data_dump';
 import { parse, ParseResult } from 'papaparse';
+import ItemLink, { WritType } from './ItemLink';
 
 export interface DataTable {
     global: Record[];
@@ -13,6 +14,7 @@ export interface DataTable {
     guilds: string[];
     dateMap: { [date: string]: Record[] };
     dates: string[];
+    writs: { [key in WritType]: ItemLink[] };
 }
 
 export interface Record {
@@ -23,6 +25,7 @@ export interface Record {
     quant: string;
     seller: string;
     timestamp: string;
+    itemlink: string;
 }
 
 export default class DataParser {
@@ -37,6 +40,15 @@ export default class DataParser {
     guilds: string[] = [];
     dateMap: { [date: string]: Record[] } = {};
     dates: string[] = [];
+    writs: { [key in WritType]: ItemLink[] } = {
+        ALCHEMY: [],
+        BLACKSMITHING: [],
+        CLOTHIER: [],
+        ENCHANTING: [],
+        JEWELRY: [],
+        PROVISIONING: [],
+        WOODWORKING: [],
+    };
 
     i: number = 0;
     len: number = 1;
@@ -65,7 +77,7 @@ export default class DataParser {
         const url = isNode
             ? 'NicolasNewman/CGT290-Final/master/data/data.csv'
             : 'https://raw.githubusercontent.com/NicolasNewman/CGT290-Final/master/data/data.csv';
-
+        console.log(url);
         fetch(url)
             .then((res) => res.text())
             .then((text) => {
@@ -108,6 +120,13 @@ export default class DataParser {
                             this.dates.push(date);
                         }
                         this.insert(date, data, this.dateMap);
+
+                        if (data.itemlink) {
+                            const link = new ItemLink(data.itemlink);
+                            if (link.writType) {
+                                this.writs[link.writType].push(link);
+                            }
+                        }
                     },
                     complete: () => {
                         console.log('Done!');
@@ -142,6 +161,7 @@ export default class DataParser {
             guilds: this.guilds,
             dateMap: this.dateMap,
             dates: this.dates,
+            writs: this.writs,
         };
     }
 }

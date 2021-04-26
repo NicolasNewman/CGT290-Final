@@ -41,19 +41,39 @@ export default class Analysis extends Component<IProps> {
                 </p>
                 <h1>1) Many firms</h1>
                 <p>
-                    From this data set alone, {data.sellers.length} unique
-                    sellers were recorded across {data.guilds.length} guilds.
-                    With over 200 guild traders available, there could be
-                    anywhere from {(100 * 200).toLocaleString()} to{' '}
+                    In a perfectly competitive market, this condition is
+                    important as the more sellers you have, the harder it is to
+                    colude on fixing prices. Without the ability to colude,
+                    sellers are forced to sell at the markets asking price. From
+                    this data set alone, {data.sellers.length} unique sellers
+                    were recorded across {data.guilds.length} guilds. With over
+                    200 guild traders available, there could be anywhere from{' '}
+                    {(100 * 200).toLocaleString()} to{' '}
                     {(500 * 200).toLocaleString()} sellers.
                 </p>
                 <h1>2) Freedom of entry and exit</h1>
+                <p>
+                    The 2nd condition for a perfectly competitive market is
+                    there are no barries of entry or exit into the market. If
+                    any barriers exist, it will limit new firms from entering
+                    the market due to high costs of entry, or fear of costs from
+                    leaving.
+                </p>
                 <h2>Freedom of entry</h2>
                 <p>
-                    Barriers to entry can go both ways. In order to sell items,
-                    one must be a member of a guild to have access to a trader.
-                    Depending on the guild, they may require a weekly fee to
-                    maintain membership, causing a barrier to enter the market
+                    As mentioned previously, in order to sell on the market, one
+                    must be a member of a guild who owns a trader. Due to the
+                    high costs required by a guild to bidding on one, most
+                    require weekly dues from their members. If one is a new
+                    player starting out, their fees are often to high, forcing
+                    them to join a guild in a remote location that receives
+                    little foot traffic. Additionally, there is a 1% listing fee
+                    for putting an item on a trader. While generally not a
+                    concern for high traffic traders, if your item doesn't sell
+                    within 30 days, you don't make the 99% back from the sale of
+                    the item. As a result of these two mechanisms, barriers
+                    exist for entry into the market which lowers the amount of
+                    sellers present in the economy
                 </p>
                 <h2>Freedom of exit</h2>
                 <p>
@@ -138,7 +158,7 @@ export default class Analysis extends Component<IProps> {
                 <PlayerScatterPlot
                     data={this.props.data.sellerMap}
                     item="dreugh wax"
-                    players={['@3753']}
+                    players={['@358']}
                 />
                 <p>
                     If we make a Quantity v. Price chart, we can see that the
