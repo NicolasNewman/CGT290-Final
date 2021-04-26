@@ -26,18 +26,9 @@ export default class Analysis extends Component<IProps> {
             <div>
                 <h1>Preface</h1>
                 <p>
-                    To make the analysis easier, we will assume both buyers and
-                    sellers are only making use of tool provided by the game
-                    itself. This means we will not account for tools such as{' '}
-                    <a href="https://esouimods.github.io/3-master_merchant.html">
-                        Master Merchant
-                    </a>{' '}
-                    (MM) and{' '}
-                    <a href="https://tamrieltradecentre.com/">
-                        Tamriel Trade Center
-                    </a>{' '}
-                    (TTC), which only a small portion of the player base make
-                    use of.
+                    In order to determine wheather or not the economy can be
+                    modeled by perfect competition, we need to assess if the
+                    following conditions hold true
                 </p>
                 <h1>1) Many firms</h1>
                 <p>
@@ -54,26 +45,22 @@ export default class Analysis extends Component<IProps> {
                 <h1>2) Freedom of entry and exit</h1>
                 <p>
                     The 2nd condition for a perfectly competitive market is
-                    there are no barries of entry or exit into the market. If
-                    any barriers exist, it will limit new firms from entering
-                    the market due to high costs of entry, or fear of costs from
-                    leaving.
+                    there are no barries of entry or exit into or out of the
+                    market. If any barriers exist, it will limit new firms from
+                    entering the market due to high costs of entry, or fear of
+                    costs from leaving.
                 </p>
                 <h2>Freedom of entry</h2>
                 <p>
                     As mentioned previously, in order to sell on the market, one
                     must be a member of a guild who owns a trader. Due to the
-                    high costs required by a guild to bidding on one, most
-                    require weekly dues from their members. If one is a new
-                    player starting out, their fees are often to high, forcing
-                    them to join a guild in a remote location that receives
-                    little foot traffic. Additionally, there is a 1% listing fee
-                    for putting an item on a trader. While generally not a
-                    concern for high traffic traders, if your item doesn't sell
-                    within 30 days, you don't make the 99% back from the sale of
-                    the item. As a result of these two mechanisms, barriers
-                    exist for entry into the market which lowers the amount of
-                    sellers present in the economy
+                    high costs required by a guild to bid on one, most require
+                    weekly dues from their members. If one is a new player
+                    starting out, their fees are often to high, forcing them to
+                    join a guild in a remote location that receives little foot
+                    traffic. As a result of this, barriers exist for entry into
+                    the market which lowers the amount of sellers present in the
+                    economy
                 </p>
                 <h2>Freedom of exit</h2>
                 <p>
@@ -89,6 +76,61 @@ export default class Analysis extends Component<IProps> {
                     permenetly lost as they won't make it back once the item(s)
                     sell.
                 </p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Listing Price</th>
+                            <th>Listing Tax (1%)</th>
+                            <th>Sale Tax (7%)</th>
+                            <th>Profit with sale</th>
+                            <th>Profit without sale</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>100g</td>
+                            <td>1g</td>
+                            <td>7g</td>
+                            <td>92g</td>
+                            <td>-1g</td>
+                        </tr>
+                        <tr>
+                            <td>1,000g</td>
+                            <td>10g</td>
+                            <td>70g</td>
+                            <td>920g</td>
+                            <td>-10g</td>
+                        </tr>
+                        <tr>
+                            <td>10,000g</td>
+                            <td>100g</td>
+                            <td>700g</td>
+                            <td>9,200g</td>
+                            <td>-100g</td>
+                        </tr>
+                        <tr>
+                            <td>100,000g</td>
+                            <td>1,000g</td>
+                            <td>7,000g</td>
+                            <td>92,000g</td>
+                            <td>-1,000g</td>
+                        </tr>
+                        <tr>
+                            <td>1,000,000g</td>
+                            <td>10,000g</td>
+                            <td>70,000g</td>
+                            <td>920,000g</td>
+                            <td>-10,000g</td>
+                        </tr>
+                        <tr>
+                            <td>10,000,000g</td>
+                            <td>100,000g</td>
+                            <td>700,000g</td>
+                            <td>9,200,000g</td>
+                            <td>-100,000g</td>
+                        </tr>
+                    </tbody>
+                </table>
                 <h1>3) All firms produce an identical product</h1>
                 <p>
                     The products that can be sold are determined by what items
@@ -144,7 +186,7 @@ export default class Analysis extends Component<IProps> {
                     }
                 />
                 <p>
-                    Looking at the above chart, player @3753 sold 11 different
+                    Looking at the above chart, player @358 sold 11 different
                     quantities of the item
                 </p>
                 {/* <PlayerBarChart
@@ -166,6 +208,7 @@ export default class Analysis extends Component<IProps> {
                     true.
                 </p>
                 <h1>5) There is perfect information and knowledge</h1>
+                <h2>Update 29 Analysis</h2>
                 {/* <MotifTracker data={this.props.data.itemMap} /> */}
                 <p>
                     For this condition to be true, everyone must be aware of the
@@ -182,8 +225,8 @@ export default class Analysis extends Component<IProps> {
                     up by 150%.
                 </p>
                 <p>
-                    At this point in time, many who are aware of ecomonics will
-                    know that with a drastic increase in demand, prices will
+                    By now, many who are knowledgeable of ecomonics will know
+                    that with a drastic increase in demand, prices will
                     skyrocket. If this condition was true, every seller would
                     have been aware of this and have accounted for it
                     accordingly.
@@ -214,10 +257,11 @@ export default class Analysis extends Component<IProps> {
                         increase
                     </li>
                     <li>
-                        As the time since the updates draw out, start seeing
+                        As the time since the updates draw out, we start seeing
                         more and more sales from other guilds. This is most
-                        likely due to word of mouth spreading once players can
-                        physically see the price increase
+                        likely due to word of mouth, as players who were
+                        initially not aware of the increased demand start trying
+                        to obtain the item to sell
                     </li>
                 </ol>
                 <p>
@@ -225,11 +269,46 @@ export default class Analysis extends Component<IProps> {
                     doesn't appear to immedietly reach everyone, making this
                     condition untrue
                 </p>
+                <h2>Addons</h2>
+                <p>
+                    Another factor that effects the validity of this condition
+                    are price tracking addons. By default, there are no tools
+                    provided by the creators of the game to efficiently track
+                    prices of items. As a result, players of the game created
+                    addons and tools such as{' '}
+                    <a href="https://esouimods.github.io/3-master_merchant.html">
+                        Master Merchant
+                    </a>{' '}
+                    (MM) and{' '}
+                    <a href="https://tamrieltradecentre.com/">
+                        Tamriel Trade Center
+                    </a>{' '}
+                    (TTC). As helpful as these may be, many casual players are
+                    unaware of these addons, and have no basis on which to judge
+                    the true value of an item. As a result of this, we see many
+                    outliers within the data where an item was sold well below
+                    the average, or was bought well above it.
+                </p>
                 <h1>Conclusion</h1>
                 <p>
                     After careful analysis, the only conditions which hold true
                     are 1, 3, and 4. Since 2 and 5 don't, we cannot use this
                     economy as a model for perfect competition
+                </p>
+                <h2>Differences from World of Warcraft</h2>
+                <p>
+                    In Eli Kosminsky's paper, he determined that the econonmy
+                    within WoW infact does follow the model of perfect
+                    competition. The reason for these two different conclusions
+                    are that WoW has a centralized economy, with only one
+                    central auction house with which you can buy and sell items.
+                    Furthurmore, anyone has access to the auction house and no
+                    3rd party is needed. While WoW also needs 3rd party addons
+                    to track prices, a novice seller can easily search for what
+                    they are selling and see every single listing of that item,
+                    and immedietly know the true value. Compared to ESO, you
+                    only see the listings for that trader, which could have
+                    prices that vastly differ from another
                 </p>
             </div>
         );

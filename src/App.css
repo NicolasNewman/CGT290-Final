@@ -5,6 +5,29 @@ body {
     color: #fff;
 }
 
+table {
+    margin: 0 auto;
+}
+
+table,
+td,
+th {
+    border: 1px solid white;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 5px;
+}
+
+tr td:nth-child(4) {
+    color: #00da00;
+}
+tr td:nth-child(5) {
+    color: #ff0000;
+}
+
 h1,
 h2,
 h3,

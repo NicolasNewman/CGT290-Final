@@ -24,6 +24,6 @@ const str = `def AnonymizerFactory(d):
             for key in d:
                 f.write(f'{key},{d[key]}\n')
 
-return anonymizer, load, save`;
+    return anonymizer, load, save`;
 
 export default str;

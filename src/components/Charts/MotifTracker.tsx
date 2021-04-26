@@ -83,6 +83,13 @@ export default class SellerBars extends Component<IProps> {
                 { x: '4/1/2021', y: 280000 },
             ],
         });
+        this.data.push({
+            id: 'Anniversary Event End',
+            data: [
+                { x: '4/15/2021', y: 0 },
+                { x: '4/15/2021', y: 280000 },
+            ],
+        });
     }
 
     formatDate(d: Date) {
