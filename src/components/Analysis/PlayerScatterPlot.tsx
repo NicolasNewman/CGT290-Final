@@ -2,6 +2,7 @@
 import { Component } from 'react';
 import { Record } from '../../classes/DataParser';
 import { ResponsiveScatterPlot } from '@nivo/scatterplot';
+import format from 'dateformat';
 
 interface IProps {
     data: { [name: string]: Record[] };
@@ -12,16 +13,20 @@ export default class PlayerScatterPlot extends Component<IProps> {
     props!: IProps;
     data: {
         id: string;
-        data: { x: number; y: number }[];
+        data: { x: number; y: number; date: string }[];
     }[] = [];
     yMax: number = Number.MIN_VALUE;
+
     constructor(props: IProps) {
         super(props);
         props.players.forEach((player) => {
             const playerRecords = props.data[player].filter(
                 (record) => record.item === props.item
             );
-            const temp: { id: string; data: { x: number; y: number }[] } = {
+            const temp: {
+                id: string;
+                data: { x: number; y: number; date: string }[];
+            } = {
                 id: player,
                 data: [],
             };
@@ -33,6 +38,7 @@ export default class PlayerScatterPlot extends Component<IProps> {
                 temp.data.push({
                     x: parseInt(record.quant),
                     y: price,
+                    date: record.timestamp,
                 });
             });
             this.data.push(temp);
@@ -121,10 +127,13 @@ export default class PlayerScatterPlot extends Component<IProps> {
                         ]}
                         tooltip={(obj: any) => {
                             const { data } = obj.node;
+                            console.log(obj);
+                            console.log(data);
                             return (
                                 <div className="tooltip">
                                     {data.serieId} sold a stack of {data.x}{' '}
-                                    {this.props.item} for {data.y}g per unit
+                                    {this.props.item} for {data.y}g per unit on{' '}
+                                    {format(new Date(data.date), 'mm/dd/yy')}
                                 </div>
                             );
                         }}

@@ -5,7 +5,8 @@ import MotifTracker from './Charts/MotifTracker';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import { Popover } from 'antd';
 import ImgPerfectCompetition from '../perfect_comp.png';
-import PlayerBarChart from './Analysis/PlayerBarChart';
+import PlayerBarChart from './Analysis/PriceTakerPlot';
+// import PlayerBarChart from './Analysis/PlayerBarChart';
 import PlayerScatterPlot from './Analysis/PlayerScatterPlot';
 import ItemScatterPlot from './Analysis/ItemScatterPlot';
 
@@ -185,10 +186,10 @@ export default class Analysis extends Component<IProps> {
                         'Unique quantities for the quantity of dreugh wax sold, per player'
                     }
                 />
-                <p>
+                {/* <p>
                     Looking at the above chart, player @358 sold 11 different
                     quantities of the item
-                </p>
+                </p> */}
                 {/* <PlayerBarChart
                     data={this.props.data.sellerMap}
                     item="dreugh wax"
@@ -197,11 +198,11 @@ export default class Analysis extends Component<IProps> {
                     }
                     show={10}
                 /> */}
-                <PlayerScatterPlot
+                {/* <PlayerScatterPlot
                     data={this.props.data.sellerMap}
                     item="dreugh wax"
                     players={['@358']}
-                />
+                /> */}
                 <p>
                     If we make a Quantity v. Price chart, we can see that the
                     line of best fit would have a slope near 0, making this

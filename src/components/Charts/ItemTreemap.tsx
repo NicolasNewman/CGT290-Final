@@ -2,14 +2,26 @@
 import { Component } from 'react';
 import { Record } from '../../classes/DataParser';
 import { ResponsiveTreeMap } from '@nivo/treemap';
+import format from 'dateformat';
+import { ResponsiveScatterPlot } from '@nivo/scatterplot';
+
+interface IScatterData {
+    id: string;
+    data: { x: string; y: number; quant: number; guild: string }[];
+}
 
 interface IProps {
     data: { [name: string]: Record[] };
     count: number;
 }
 
-export default class ItemTreemap extends Component<IProps> {
+interface IState {
+    scatterData: IScatterData[];
+}
+
+export default class ItemTreemap extends Component<IProps, IState> {
     props!: IProps;
+    state: IState;
     data: {
         name: 'Items';
         children: {
@@ -30,6 +42,14 @@ export default class ItemTreemap extends Component<IProps> {
             avg: number;
             count: number;
         }[] = [];
+        this.state = {
+            scatterData: [
+                {
+                    id: '',
+                    data: [],
+                },
+            ],
+        };
         Object.keys(props.data).forEach((item) => {
             const origRecords = props.data[item];
             // const saleValue = parseInt(
@@ -66,6 +86,9 @@ export default class ItemTreemap extends Component<IProps> {
     render() {
         return (
             <div className="chart">
+                <p style={{ color: 'red' }}>
+                    Note: Click on a square to see all transactions!
+                </p>
                 <div style={{ width: '100%', height: '500px' }}>
                     <ResponsiveTreeMap
                         data={this.data}
@@ -104,44 +127,81 @@ export default class ItemTreemap extends Component<IProps> {
                                     </div>
                                 </div>
                             );
-                            // return (
-                            //     <div
-                            //         style={{
-                            //             padding: '0.25rem',
-                            //             backgroundColor: '#999',
-                            //         }}
-                            //     >
-                            //         <div>
-                            //             <strong>
-                            //                 {this.dateToDayOfWeek(data.day)}
-                            //             </strong>
-                            //         </div>
-                            //         {data.guilds ? (
-                            //             data.guilds.map((guild: any) => (
-                            //                 <div
-                            //                     style={{
-                            //                         padding: '0.1rem 0.5rem',
-                            //                     }}
-                            //                 >
-                            //                     {guild.name}: {guild.value}
-                            //                 </div>
-                            //             ))
-                            //         ) : (
-                            //             <span />
-                            //         )}
-                            //         <div
-                            //             style={{
-                            //                 color: 'red',
-                            //                 padding: '0.1rem 0.5rem',
-                            //             }}
-                            //         >
-                            //             Total: {data.value ? data.value : 0}
-                            //         </div>
-                            //     </div>
-                            // );
+                        }}
+                        onClick={(square) => {
+                            const name = square.id;
+                            const records = this.props.data[name];
+                            const newData: IScatterData = {
+                                id: name,
+                                data: [],
+                            };
+                            records.forEach((record) =>
+                                newData.data.push({
+                                    x: format(
+                                        new Date(record.timestamp),
+                                        'mm/dd/yyyy'
+                                    ),
+                                    y:
+                                        parseInt(record.price) /
+                                        parseInt(record.quant),
+                                    quant: parseInt(record.quant),
+                                    guild: record.guild,
+                                })
+                            );
+                            this.setState({ scatterData: [newData] });
                         }}
                     />
                 </div>
+                {this.state.scatterData[0].data.length > 0 ? (
+                    <div style={{ width: '100%', height: '350px' }}>
+                        <ResponsiveScatterPlot
+                            data={this.state.scatterData}
+                            xScale={{
+                                type: 'time',
+                                format: '%m/%d/%Y',
+                                useUTC: false,
+                                precision: 'day',
+                            }}
+                            xFormat="time:%m/%d/%Y"
+                            yScale={{
+                                type: 'linear',
+                                stacked: false,
+                            }}
+                            axisLeft={{
+                                legend: 'linear scale',
+                                legendOffset: 12,
+                            }}
+                            axisBottom={{
+                                format: '%b %d',
+                                tickValues: 'every 45 days',
+                                legend: 'time scale',
+                                legendOffset: -12,
+                            }}
+                            margin={{
+                                top: 20,
+                                right: 110,
+                                bottom: 50,
+                                left: 60,
+                            }}
+                            theme={{ textColor: '#fff' }}
+                            tooltip={(point: any) => {
+                                console.log(point);
+                                const { data } = point.node;
+                                return (
+                                    <div className="tooltip">
+                                        <div>
+                                            Sold {data.quant} {data.serieId} for{' '}
+                                            {Math.round(data.y)} each on{' '}
+                                            {data.formattedX} in {data.guild}
+                                        </div>
+                                    </div>
+                                );
+                            }}
+                        />
+                    </div>
+                ) : (
+                    <span />
+                )}
                 <div
                     style={{
                         display: 'grid',

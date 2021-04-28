@@ -2,11 +2,30 @@
 import { Component } from 'react';
 import { Record } from '../../classes/DataParser';
 import { ResponsiveChord } from '@nivo/chord';
-
+import { Button, Table } from 'antd';
+import format from 'dateformat';
 interface IProps {
     buyers: { [name: string]: Record[] };
     sellers: { [name: string]: Record[] };
     count: number;
+}
+
+interface ITableEntry {
+    name: string;
+    price: number;
+    date: string;
+    dateName: string;
+    quantity: number;
+}
+
+interface ITableData {
+    direction: string[];
+    s2t: ITableEntry[];
+    t2s: ITableEntry[];
+}
+
+interface IState {
+    tableData: ITableData;
 }
 
 /**
@@ -48,13 +67,21 @@ const mutate = (
         .slice(0, count);
 };
 
-export default class ChordChart extends Component<IProps> {
+export default class ChordChart extends Component<IProps, IState> {
     props!: IProps;
+    state: IState;
     matrix: number[][];
     keys: string[] = [];
 
     constructor(props: IProps) {
         super(props);
+        this.state = {
+            tableData: {
+                direction: [],
+                s2t: [],
+                t2s: [],
+            },
+        };
         const sellerArr = mutate(props.sellers, 'buyer', props.count);
 
         let i = 0;
@@ -132,6 +159,10 @@ export default class ChordChart extends Component<IProps> {
     render() {
         return (
             <div className="chart">
+                <p style={{ color: 'red' }}>
+                    Note: Click a cord to see what was exchanged between
+                    players!
+                </p>
                 <div style={{ width: '100%', height: '500px' }}>
                     <ResponsiveChord
                         matrix={this.matrix}
@@ -157,7 +188,6 @@ export default class ChordChart extends Component<IProps> {
                             );
                         }}
                         ribbonTooltip={(data: any) => {
-                            console.log(data);
                             const { ribbon } = data;
                             const { source, target } = ribbon;
                             return (
@@ -175,8 +205,172 @@ export default class ChordChart extends Component<IProps> {
                         }}
                         colors={{ scheme: 'paired' }}
                         labelRotation={-90}
+                        onRibbonClick={(ribbon, e) => {
+                            console.log(ribbon);
+                            const source = ribbon.source;
+                            const target = ribbon.target;
+
+                            const data: ITableData = {
+                                direction: ribbon.id.split('.'),
+                                s2t: [],
+                                t2s: [],
+                            };
+                            this.props.sellers[source.id].forEach((record) => {
+                                if (record.buyer === target.id) {
+                                    data.s2t.push({
+                                        name: record.item,
+                                        price: parseInt(record.price),
+                                        quantity: parseInt(record.quant),
+                                        date: record.timestamp,
+                                        dateName: format(
+                                            new Date(record.timestamp),
+                                            'mm/d/yy'
+                                        ),
+                                    });
+                                }
+                            });
+                            const targetToSource = [];
+                            this.props.sellers[target.id].forEach((record) => {
+                                if (record.buyer === source.id) {
+                                    data.t2s.push({
+                                        name: record.item,
+                                        price: parseInt(record.price),
+                                        quantity: parseInt(record.quant),
+                                        date: record.timestamp,
+                                        dateName: format(
+                                            new Date(record.timestamp),
+                                            'mm/d/yy'
+                                        ),
+                                    });
+                                }
+                            });
+                            console.log(data);
+                            this.setState({ tableData: data });
+                        }}
                     />
                 </div>
+                {this.state.tableData.s2t.length > 0 ||
+                this.state.tableData.t2s.length > 0 ? (
+                    <div style={{ display: 'flex' }}>
+                        <div style={{ display: 'flex', position: 'relative' }}>
+                            <div
+                                style={{
+                                    position: 'absolute',
+                                    zIndex: 1,
+                                    bottom: '16px',
+                                    right: '586px',
+                                }}
+                            >
+                                <Button
+                                    type="primary"
+                                    onClick={(e) =>
+                                        this.setState({
+                                            tableData: {
+                                                direction: [],
+                                                s2t: [],
+                                                t2s: [],
+                                            },
+                                        })
+                                    }
+                                >
+                                    Close Table
+                                </Button>
+                            </div>
+
+                            <Table
+                                style={{ marginRight: '2%' }}
+                                dataSource={this.state.tableData.s2t}
+                                columns={[
+                                    {
+                                        title: `Items sold by ${this.state.tableData.direction[1]} to ${this.state.tableData.direction[0]}`,
+                                        children: [
+                                            {
+                                                title: 'Date',
+                                                dataIndex: 'dateName',
+                                                key: 'date',
+                                                sorter: (a, b) => {
+                                                    return (
+                                                        new Date(
+                                                            a.date
+                                                        ).getTime() -
+                                                        new Date(
+                                                            b.date
+                                                        ).getTime()
+                                                    );
+                                                },
+                                            },
+                                            {
+                                                title: 'Item',
+                                                dataIndex: 'name',
+                                                key: 'item',
+                                            },
+                                            {
+                                                title: 'Quantity',
+                                                dataIndex: 'quantity',
+                                                key: 'quantity',
+                                                sorter: (a, b) =>
+                                                    a.quantity - b.quantity,
+                                            },
+                                            {
+                                                title: 'Price',
+                                                dataIndex: 'price',
+                                                key: 'value',
+                                                sorter: (a, b) =>
+                                                    a.price - b.price,
+                                            },
+                                        ],
+                                    },
+                                ]}
+                            />
+                            <Table
+                                dataSource={this.state.tableData.t2s}
+                                columns={[
+                                    {
+                                        title: `Items sold by ${this.state.tableData.direction[0]} to ${this.state.tableData.direction[1]}`,
+                                        children: [
+                                            {
+                                                title: 'Date',
+                                                dataIndex: 'dateName',
+                                                key: 'date',
+                                                sorter: (a, b) => {
+                                                    return (
+                                                        new Date(
+                                                            a.date
+                                                        ).getTime() -
+                                                        new Date(
+                                                            b.date
+                                                        ).getTime()
+                                                    );
+                                                },
+                                            },
+                                            {
+                                                title: 'Item',
+                                                dataIndex: 'name',
+                                                key: 'item',
+                                            },
+                                            {
+                                                title: 'Quantity',
+                                                dataIndex: 'quantity',
+                                                key: 'quantity',
+                                                sorter: (a, b) =>
+                                                    a.quantity - b.quantity,
+                                            },
+                                            {
+                                                title: 'Price',
+                                                dataIndex: 'price',
+                                                key: 'value',
+                                                sorter: (a, b) =>
+                                                    a.price - b.price,
+                                            },
+                                        ],
+                                    },
+                                ]}
+                            />
+                        </div>
+                    </div>
+                ) : (
+                    <span />
+                )}
             </div>
         );
     }
