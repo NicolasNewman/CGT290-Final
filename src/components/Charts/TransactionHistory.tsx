@@ -135,6 +135,11 @@ export default class TransactionHistory extends Component<IProps> {
                                     this.avg.length
                             )}
                         </p>
+                        <p className="info">
+                            The color of each square represents the number of
+                            transactions that occured on that day, with orange
+                            being more then green
+                        </p>
                     </div>
                 )}
                 <div style={{ width: '100%', height: '225px' }}>

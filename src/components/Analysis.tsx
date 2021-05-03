@@ -29,9 +29,39 @@ export default class Analysis extends Component<IProps> {
                 <p>
                     In order to determine wheather or not the economy can be
                     modeled by perfect competition, we need to assess if the
-                    following conditions hold true
+                    following conditions hold true:
                 </p>
-                <h1>1) Many firms</h1>
+                <h3>
+                    <a style={{ color: '#0fe' }} href="#one">
+                        1)
+                    </a>{' '}
+                    Many firms
+                </h3>
+                <h3>
+                    <a style={{ color: '#0fe' }} href="#two">
+                        2)
+                    </a>{' '}
+                    Freedom of entry and exit
+                </h3>
+                <h3>
+                    <a style={{ color: '#0fe' }} href="#three">
+                        3)
+                    </a>{' '}
+                    All firms produce an identical product
+                </h3>
+                <h3>
+                    <a style={{ color: '#0fe' }} href="#four">
+                        4)
+                    </a>{' '}
+                    All firms are price takers
+                </h3>
+                <h3>
+                    <a style={{ color: '#0fe' }} href="#five">
+                        5)
+                    </a>{' '}
+                    There is perfect information and knowledge
+                </h3>
+                <h1 id="one">1) Many firms</h1>
                 <p>
                     In a perfectly competitive market, this condition is
                     important as the more sellers you have, the harder it is to
@@ -43,7 +73,7 @@ export default class Analysis extends Component<IProps> {
                     {(100 * 200).toLocaleString()} to{' '}
                     {(500 * 200).toLocaleString()} sellers.
                 </p>
-                <h1>2) Freedom of entry and exit</h1>
+                <h1 id="two">2) Freedom of entry and exit</h1>
                 <p>
                     The 2nd condition for a perfectly competitive market is
                     there are no barries of entry or exit into or out of the
@@ -132,13 +162,13 @@ export default class Analysis extends Component<IProps> {
                         </tr>
                     </tbody>
                 </table>
-                <h1>3) All firms produce an identical product</h1>
+                <h1 id="three">3) All firms produce an identical product</h1>
                 <p>
                     The products that can be sold are determined by what items
                     the developers create. Players are not able to create their
                     own unique products, making this requirement true.
                 </p>
-                <h1>4) All firms are price takers</h1>
+                <h1 id="four">4) All firms are price takers</h1>
                 <p>
                     In order for this condition to be true, an individual seller
                     should have no influence over the price . The easiest way to
@@ -208,7 +238,7 @@ export default class Analysis extends Component<IProps> {
                     line of best fit would have a slope near 0, making this
                     true.
                 </p>
-                <h1>5) There is perfect information and knowledge</h1>
+                <h1 id="five">5) There is perfect information and knowledge</h1>
                 <h2>Update 29 Analysis</h2>
                 {/* <MotifTracker data={this.props.data.itemMap} /> */}
                 <p>

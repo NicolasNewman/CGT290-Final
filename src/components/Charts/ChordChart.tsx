@@ -4,6 +4,7 @@ import { Record } from '../../classes/DataParser';
 import { ResponsiveChord } from '@nivo/chord';
 import { Button, Table } from 'antd';
 import format from 'dateformat';
+
 interface IProps {
     buyers: { [name: string]: Record[] };
     sellers: { [name: string]: Record[] };
@@ -159,9 +160,8 @@ export default class ChordChart extends Component<IProps, IState> {
     render() {
         return (
             <div className="chart">
-                <p style={{ color: 'red' }}>
-                    Note: Click a cord to see what was exchanged between
-                    players!
+                <p className="interactive">
+                    Click a cord to see what was exchanged between players!
                 </p>
                 <div style={{ width: '100%', height: '500px' }}>
                     <ResponsiveChord
@@ -252,7 +252,13 @@ export default class ChordChart extends Component<IProps, IState> {
                 {this.state.tableData.s2t.length > 0 ||
                 this.state.tableData.t2s.length > 0 ? (
                     <div style={{ display: 'flex' }}>
-                        <div style={{ display: 'flex', position: 'relative' }}>
+                        <div
+                            style={{
+                                display: 'flex',
+                                position: 'relative',
+                                margin: '0 auto',
+                            }}
+                        >
                             <div
                                 style={{
                                     position: 'absolute',

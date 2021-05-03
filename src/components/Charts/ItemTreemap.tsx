@@ -86,8 +86,8 @@ export default class ItemTreemap extends Component<IProps, IState> {
     render() {
         return (
             <div className="chart">
-                <p style={{ color: 'red' }}>
-                    Note: Click on a square to see all transactions!
+                <p className="interactive">
+                    Click on a square to see all transactions!
                 </p>
                 <div style={{ width: '100%', height: '500px' }}>
                     <ResponsiveTreeMap

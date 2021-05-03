@@ -97,9 +97,9 @@ export default class SellerBars extends Component<IProps, IState> {
                         items, valued at {this.totalSaleValue.toLocaleString()}{' '}
                         gold
                     </p>
-                    <p style={{ color: 'red' }}>
-                        Note: Click the red bars to see an overview of what a
-                        seller sold!
+                    <p className="interactive">
+                        Click the red bars to see an overview of what a seller
+                        sold!
                     </p>
                 </div>
                 <div style={{ position: 'relative', height: '300px' }}>
@@ -141,7 +141,7 @@ export default class SellerBars extends Component<IProps, IState> {
                             width: '100%',
                             height: '300px',
                             position: 'absolute',
-                            opacity: '0.5',
+                            opacity: '1',
                         }}
                     >
                         <ResponsiveBar
