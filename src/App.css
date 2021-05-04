@@ -1,5 +1,9 @@
 @import '~antd/dist/antd.dark.css';
 
+ul li a {
+    color: #0fe;
+}
+
 .info {
     color: #0fe;
 }

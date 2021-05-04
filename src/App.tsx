@@ -2,15 +2,11 @@
 import React from 'react';
 // import logo from './logo.svg';
 import './App.css';
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    NavLink,
-} from 'react-router-dom';
+import { Switch, Route, NavLink } from 'react-router-dom';
 
 import Home from './components/Home';
 import Story from './components/Story';
+import Resources from './components/Resources';
 import { DataTable } from './classes/DataParser';
 import Analysis from './components/Analysis';
 
@@ -58,6 +54,15 @@ export default class App extends React.PureComponent<IProps> {
                                 Analysis
                             </NavLink>
                         </li>
+                        <li>
+                            <NavLink
+                                exact
+                                activeClassName="activeNav"
+                                to="/app/resources"
+                            >
+                                Tools
+                            </NavLink>
+                        </li>
                     </ul>
                 </nav>
                 <Switch>
@@ -69,6 +74,9 @@ export default class App extends React.PureComponent<IProps> {
                     </Route>
                     <Route path="/app/home">
                         <Home data={this.props.data} />
+                    </Route>
+                    <Route path="/app/resources">
+                        <Resources />
                     </Route>
                 </Switch>
             </div>
